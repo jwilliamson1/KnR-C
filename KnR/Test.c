@@ -5,10 +5,10 @@
 
 int main() {
 	//printf("hello world\n");
-	/*while (getchar() != EOF) {
+	while (getchar() != EOF) {
 		wordHisto();
-	}	*/
-	ranges();
+	}	
+	//ranges();
 	//getArbitraryLines();
 	system("pause");
 	return 1;
@@ -140,6 +140,7 @@ ws() {
 	}	
 }
 
+//1-13
 wordHisto() {
 	int wordsSlots[1000], currentLength, i, c, j;
 	currentLength = 0;
