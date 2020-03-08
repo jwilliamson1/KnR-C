@@ -1,17 +1,58 @@
 #include <stdio.h>
 #include <float.h>
 #include <limits.h>
+#include <ctype.h>
 #include "GetArbitratyLines.h"
 
 int main() {
 	//printf("hello world\n");
-	while (getchar() != EOF) {
-		wordHisto();
-	}	
+	//while (getchar() != EOF) {
+		htoiTest();
+	//}
 	//ranges();
 	//getArbitraryLines();
 	system("pause");
 	return 1;
+}
+
+ htoiTest() {
+	char c;
+	char s[100];
+	int i = 0;
+	while ((c = getchar()) != EOF){
+		s[i] = c;
+		i++;
+	}
+
+	printf("hex to int: %11d\n", htoi(s));
+}
+
+/* htoi: convert hex string to integer */
+int htoi(char s[])
+{
+	int c, af;
+	int i, n;	
+		n = 0;
+		for (i = 0; s[i] >= '0' && s[i] <= '9' || tolower(s[i]) >= 'a' && tolower(s[i]) <= 'f'; ++i) {
+			c = s[i] - '0';
+			if (tolower(s[i]) >= 'a' && tolower(s[i]) <= 'f') {
+				c = (int)tolower(s[i]) - 87;
+			}
+			n = 16 * n + c;
+		}
+	return n;
+}
+
+forLoopAnalog() {
+	int i, lim, bCount;
+	bCount = 0;
+	lim = 1000;
+	char c;
+	char s[1000];
+	//for (i = 0; i < lim - 1 && (c = getchar()) != '\n' && c != EOF; ++i)
+	//	s[i] = c;
+	for (i = 0; 3 == (bCount = ((i < lim - 1) + ((c = getchar()) != '\n') + (c != EOF))); ++i)
+		s[i] = c;	
 }
 
 int ranges() {
