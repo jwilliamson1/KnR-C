@@ -6,10 +6,11 @@
 #include "Test.h"
 
 int main() {
-
+	squeeze2Test();
+	//funcArrayCharTester(squeeze, 'c');
 	//printf("hello world\n");
 	//while (getchar() != EOF) {
-	funcTester(htoi);
+	//funcTester(htoi);
 	//}
 	//ranges();
 	//getArbitraryLines();
@@ -27,6 +28,74 @@ int funcTester(int (*func)(char[])) {
 	}
 	func(s);
 	//printf("hex to int: %11d\n", htoi(s));
+}
+
+int funcArrayCharTester(int (*func)(char[], char), char ch) {
+	char c;
+	char s[100];
+	int i = 0;
+	while ((c = getchar()) != EOF) {
+		s[i] = c;
+		i++;
+	}
+	func(s, ch);
+	printf("%s", s);
+}
+
+int squeeze2Test() {
+	char c;
+	char s[100];
+	char rmv[1];
+	int i = 0;
+	while ((c = getchar()) != EOF) {
+		rmv[i] = c;
+		i++;
+	}
+	i = 0;
+	while ((c = getchar()) != EOF) {
+		s[i] = c;
+		i++;
+	}
+	squeeze2(s, rmv);
+	printf("%s", s);
+}
+
+void func2ArrayTester(int (*func)(char[], char[]), char ch[]) {
+	char c;
+	char s[100];
+	int i = 0;
+	while ((c = getchar()) != EOF) {
+		s[i] = c;
+		i++;
+	}
+	func(s, ch);
+	printf("%s", s);
+}
+
+int squeeze2(char s1[], char s2[])
+{
+	int i, j, k;
+	char c;
+	for (i = 0; s2[i] != '\0'; i++)
+	{
+		c = s2[i];
+		for (j = k = 0; s1[j] != '\0'; j++)
+			if (s1[j] != c)
+			{
+				s1[k] = s1[j];
+				k++;
+			}				
+		s1[k] = '\0';
+	}
+}
+
+/* squeeze:  delete all c from s */   
+int squeeze(char s[], int c) 
+{ int i, j;
+	for (i = j = 0; s[i] != '\0'; i++)
+		if (s[i] != c) 
+		s[j++] = s[i];
+	s[j] = '\0'; 
 }
 
  htoiTest() {
