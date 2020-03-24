@@ -6,7 +6,8 @@
 #include "Test.h"
 
 int main() {
-	squeeze2Test();
+	anyTest();
+	//squeeze2Test();
 	//funcArrayCharTester(squeeze, 'c');
 	//printf("hello world\n");
 	//while (getchar() != EOF) {
@@ -40,6 +41,33 @@ int funcArrayCharTester(int (*func)(char[], char), char ch) {
 	}
 	func(s, ch);
 	printf("%s", s);
+}
+
+int anyTest() {
+	char some[] = "some";
+	char match[] = "nein";
+	int i = any(some, match);
+	printf("%i\n", i);
+
+	char somemore[] = "asdf";
+	char none[] = "zxcv";
+	int j = any(somemore, none);
+	printf("%i\n", j);
+}
+
+int any(char s1[], char s2[]) {
+	int i, j;
+	char c;
+	for (i = j = 0; s2[i] != '\0'; i++)
+	{
+		c = s2[i];
+		for (j = 0; s1[j] != '\0'; j++)
+			if (s1[j] == c)
+			{
+				return j;
+			}		
+	}
+	return -1;
 }
 
 int squeeze2Test() {	
