@@ -42,21 +42,11 @@ int funcArrayCharTester(int (*func)(char[], char), char ch) {
 	printf("%s", s);
 }
 
-int squeeze2Test() {
-	char c;
-	char s[100];
-	char rmv[1];
-	int i = 0;
-	while ((c = getchar()) != EOF) {
-		rmv[i] = c;
-		i++;
-	}
-	i = 0;
-	while ((c = getchar()) != EOF) {
-		s[i] = c;
-		i++;
-	}
+int squeeze2Test() {	
+	char s[] = "ace of spades";
+	char rmv[] = "aesdf";
 	squeeze2(s, rmv);
+	
 	printf("%s", s);
 }
 
@@ -76,7 +66,7 @@ int squeeze2(char s1[], char s2[])
 {
 	int i, j, k;
 	char c;
-	for (i = 0; s2[i] != '\0'; i++)
+	for (i = j = k = 0; s2[i] != '\0'; i++)
 	{
 		c = s2[i];
 		for (j = k = 0; s1[j] != '\0'; j++)
