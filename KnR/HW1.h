@@ -1,0 +1,1 @@
+#define squared(x) (x * x);
