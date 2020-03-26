@@ -32,5 +32,8 @@
     <ClInclude Include="HW1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HW2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

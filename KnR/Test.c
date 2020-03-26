@@ -4,13 +4,18 @@
 #include <ctype.h>
 #include "GetArbitratyLines.h"
 #include "Test.h"
+#include "HW2.h"
 
 int main() {
-	unsigned int n = 0xCAFE;
-	int r = lastFourBitsOn(n);
+	unsigned short int n = 0xCAFE;
+	unsigned short int r = swapBits(n);
 	printf("%i\n", r);
 	system("pause");
 	return 1;
+}
+
+unsigned short int swapBits(unsigned short int byte) {
+	return (byte << 8) | ( byte >> 8) & 0xFFFF;
 }
 
 int lastFourBitsOn(unsigned int byte) {
