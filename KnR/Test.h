@@ -8,3 +8,4 @@ int htoi(char s[]);
 int squeeze(char s[], int c);
 int squeeze2(char s1[], char s2[]);
 int any(char s1[], char s2[]);
+int lastFourBitsOn(unsigned int byte);

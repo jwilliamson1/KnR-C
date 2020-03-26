@@ -6,17 +6,18 @@
 #include "Test.h"
 
 int main() {
-	anyTest();
-	//squeeze2Test();
-	//funcArrayCharTester(squeeze, 'c');
-	//printf("hello world\n");
-	//while (getchar() != EOF) {
-	//funcTester(htoi);
-	//}
-	//ranges();
-	//getArbitraryLines();
+	unsigned int n = 0xCAFE;
+	int r = lastFourBitsOn(n);
+	printf("%i\n", r);
 	system("pause");
 	return 1;
+}
+
+int lastFourBitsOn(unsigned int byte) {
+	int r = byte & 0xF;
+	if (r == 0xD || r== 0xB ||r== 0xE || r == 0xF)
+		return 1;
+	return -1;
 }
 
 int funcTester(int (*func)(char[])) {
