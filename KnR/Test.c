@@ -8,14 +8,18 @@
 
 int main() {
 	unsigned short int n = 0xCAFE;
-	unsigned short int r = swapBits(n);
+	unsigned short int r = rotBits(n);
 	printf("%i\n", r);
 	system("pause");
 	return 1;
 }
 
+unsigned short int rotBits(unsigned short int byte) {
+	return (byte << 12 | byte >> 4);
+}
+
 unsigned short int swapBits(unsigned short int byte) {
-	return (byte << 8) | ( byte >> 8) & 0xFFFF;
+	return (byte << 8) | ( byte >> 8);
 }
 
 int lastFourBitsOn(unsigned int byte) {
