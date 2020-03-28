@@ -7,9 +7,10 @@
 #include "HW2.h"
 
 int main() {
-	unsigned short int n = 0xCAFE;
-	unsigned short int r = rotBits(n);
-	printf("%i\n", r);
+	//unsigned short int n = 0xCAFE;
+	//unsigned short int r = rotBits(n);
+
+	printf("%i\n", y);
 	system("pause");
 	return 1;
 }
@@ -24,7 +25,7 @@ unsigned short int swapBits(unsigned short int byte) {
 
 int lastFourBitsOn(unsigned int byte) {
 	int r = byte & 0xF;
-	if (r == 0xD || r== 0xB ||r== 0xE || r == 0xF)
+	if (r == 0xD || r== 0xB ||r== 0xE || r == 0xF || r == 0x7)
 		return 1;
 	return -1;
 }
