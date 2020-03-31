@@ -21,6 +21,9 @@
     <ClCompile Include="GetArbitraryLines.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HW2.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetArbitratyLines.h">

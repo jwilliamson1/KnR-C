@@ -7,10 +7,11 @@
 #include "HW2.h"
 
 int main() {
-	//unsigned short int n = 0xCAFE;
-	//unsigned short int r = rotBits(n);
-
-	printf("%i\n", y);
+	unsigned short int n = 0x0;
+	unsigned short int y = 0x989AD7;
+	unsigned short int r = setbits(n, 6, 3, y);
+	
+	//printf("%i\n", y);
 	system("pause");
 	return 1;
 }

@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GetArbitraryLines.c" />
+    <ClCompile Include="HW2.c" />
     <ClCompile Include="Test.c" />
   </ItemGroup>
   <ItemGroup>
