@@ -7,9 +7,9 @@
 #include "HW2.h"
 
 int main() {
-	unsigned short int n = 0x0;
-	unsigned short int y = 0x989AD7;
-	unsigned short int r = setbits(n, 6, 3, y);
+	unsigned short int n = 4;
+	unsigned short int y = 0xFFFFF;
+	unsigned short int r = rotbits(y, n);
 	
 	//printf("%i\n", y);
 	system("pause");

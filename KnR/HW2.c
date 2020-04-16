@@ -18,3 +18,13 @@ unsigned short int setbits(unsigned short int x, int p, int n, unsigned short in
 	unsigned short int res = (xbiteraser & x) | yshifted;
 	return res;
 }
+
+unsigned short int rotbits(unsigned short int x, int n) {
+	unsigned short int rightNMask = ~((~0) << n);
+	unsigned short int rightNOnly = rightNMask & x;
+	unsigned short int toShiftLeft = x - rightNOnly;
+	unsigned short int leftShifted = x << toShiftLeft;
+	unsigned short int rightShifted = x >> n;
+	unsigned short res = leftShifted & rightShifted;
+	return res;
+}
