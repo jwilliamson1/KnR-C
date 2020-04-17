@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <limits.h>
 unsigned short int copybits(unsigned short int x, int p, int n, unsigned short int y) {
 	//gets right most n bits from y 10001110
 	unsigned short int yMask1 = (~(~0 << n)) << p;
@@ -20,11 +21,19 @@ unsigned short int setbits(unsigned short int x, int p, int n, unsigned short in
 }
 
 unsigned short int rotbits(unsigned short int x, int n) {
-	unsigned short int rightNMask = ~((~0) << n);
-	unsigned short int rightNOnly = rightNMask & x;
-	unsigned short int toShiftLeft = x - rightNOnly;
-	unsigned short int leftShifted = x << toShiftLeft;
-	unsigned short int rightShifted = x >> n;
-	unsigned short res = leftShifted & rightShifted;
-	return res;
+	/* calculate number of bits in type */
+	size_t s = sizeof(x) * CHAR_BIT;
+	size_t p;
+
+	/* limit shift to range 0 - (s - 1) */
+	if (n < s)
+		p = n;
+	else
+		p = n % s;
+
+	/* if either is zero then the original value is unchanged */
+	if ((0 == x) || (0 == p))
+		return x;
+
+	return (x >> p) | (x << (s - p));
 }
