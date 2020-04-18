@@ -8,10 +8,10 @@
 
 int main() {
 	unsigned short int n = 4;
-	unsigned short int y = 0xFFFFF;
-	unsigned short int r = rotbits(y, n);
+	unsigned short int y = 144;
+	unsigned short int i = bitcount(y);
 	
-	//printf("%i\n", y);
+	printf("%i\n", i);
 	system("pause");
 	return 1;
 }
