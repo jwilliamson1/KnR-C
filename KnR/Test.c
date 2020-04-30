@@ -5,13 +5,19 @@
 #include "GetArbitratyLines.h"
 #include "Test.h"
 #include "HW2.h"
+#include "KnR_ch3.h"
 
 int main() {
-	unsigned short int n = 4;
-	unsigned short int y = 0xFFFFE;
-	unsigned short int i = rotbits(y, n);
+	int domain[] = { 1,2,3,4,5,6,7,8,9};
 	
-	printf("%i\n", i);
+	int pos;
+
+	for (int i = 0; i <= 9; i++) {
+		pos = binsearch(10, domain, 10);
+		printf("pos: %i\n", pos);
+	}
+
+	
 	system("pause");
 	return 1;
 }

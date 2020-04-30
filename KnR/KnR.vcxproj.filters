@@ -24,6 +24,9 @@
     <ClCompile Include="HW2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KnR_ch3.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GetArbitratyLines.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HW2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KnR_ch3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
