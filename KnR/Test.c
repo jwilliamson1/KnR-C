@@ -8,12 +8,25 @@
 #include "KnR_ch3.h"
 
 int main() {
-	int domain[] = { 1,2,3,4,5,6,7,8,9};
-	
+	int domain[] = { 1 };
+	int domain2[] = { 1, 2 };
+	int domain3[] = { 1, 2, 3, 4 };
 	int pos;
 
-	for (int i = 0; i <= 9; i++) {
-		pos = binsearch(10, domain, 10);
+
+		//pos = binsearch(0, domain, 1);
+		//printf("pos: %i\n", pos);
+
+		//pos = binsearch(1, domain, 1);
+		//printf("pos: %i\n", pos);
+
+		//pos = binsearch(1, domain2, 2);
+		//printf("pos: %i\n", pos);
+
+		//pos = binsearch(2, domain2, 2);
+		//printf("pos: %i\n", pos);
+	for (int i = 0; i < 4; i++) {
+		pos = binsearch(i+1, domain3, 4);
 		printf("pos: %i\n", pos);
 	}
 
