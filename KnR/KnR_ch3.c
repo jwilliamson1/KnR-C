@@ -17,3 +17,35 @@ int binsearch(int x, int v[], int n) {
 		return mid+1;
 	return -1;
 }
+
+void escape(char s[], char t[]) {
+	int len = *(&s + 1) - s;
+	int tPos = 0;
+	for (int i = 0; i < len; i++) {
+		switch (s[i]) {
+		case '\n':
+			t[tPos++] = '\\';
+			t[tPos++] = 'n';
+			break;
+		case '\t':
+			t[tPos++] = '\\';
+			t[tPos++] = 't';
+			break;
+		default:
+			t[tPos++] = s[i];
+		}
+	}
+}
+
+void escapetest() {
+	char s[] = "asdf\nasdf\tasdf\n";
+	char t[100];
+
+	escape(s, t);
+
+	for (int i = 0; i < 18; i++) {
+		printf("%c", t[i]);
+	}
+	printf("\n");
+
+}

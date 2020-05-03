@@ -8,6 +8,7 @@
 #include "KnR_ch3.h"
 
 int main() {
+	escapetest();
 	int domain[] = { 1 };
 	int domain2[] = { 1, 2 };
 	int domain3[] = { 1, 2, 3, 4 };
