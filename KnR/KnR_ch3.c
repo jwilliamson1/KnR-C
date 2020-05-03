@@ -23,6 +23,10 @@ void escape(char s[], char t[]) {
 	int tPos = 0;
 	for (int i = 0; i < len; i++) {
 		switch (s[i]) {
+		case '\\':
+			t[tPos++] = '\\';
+			t[tPos++] = '\\';
+			break;
 		case '\n':
 			t[tPos++] = '\\';
 			t[tPos++] = 'n';
@@ -37,15 +41,47 @@ void escape(char s[], char t[]) {
 	}
 }
 
+void unescape(char s[], char t[]) {
+	int len = *(&s + 1) - s;
+	int tPos = 0;
+	for (int i = 0; i < len; i++) {		
+		if (s[i] == '\\') {
+			i++;
+			switch (s[i]) {
+				case '\\':
+					t[tPos++] = '\\';
+				case 'n':
+					t[tPos++] = '\n';					
+					break;
+				case 't':
+					t[tPos++] = '\t';					
+					break;
+				default:
+					break;
+				}
+			}
+		else
+			t[tPos++] = s[i];
+	}
+}
+
+
 void escapetest() {
-	char s[] = "asdf\nasdf\tasdf\n";
+	char s[] = "asdf\tas\\f\nasdf\tasdf";
 	char t[100];
+	char u[100];
 
 	escape(s, t);
 
-	for (int i = 0; i < 18; i++) {
+	for (int i = 0; i < 22; i++) {
 		printf("%c", t[i]);
 	}
 	printf("\n");
 
+	unescape(t, u);
+
+	for (int i = 0; i < 19; i++) {
+		printf("%c", u[i]);
+	}
+	printf("\n");
 }
