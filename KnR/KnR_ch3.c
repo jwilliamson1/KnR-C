@@ -1,3 +1,87 @@
+#include <stdio.h>
+
+void writeexpansion(char start, char end, char* t, int pos);
+
+void expand(char s[], char t[], int len) {
+	int pos = 0;
+	int dashSeen = 0;
+	char start;
+	char end;
+	enum states {literal, inlower, inupper, numeric};
+	enum states state;
+	state = literal;
+	for (int i = 0; i < len; i++) {
+		if (s[i] == '\0')
+			break;
+		if (s[i] == '-') {
+			if (dashSeen) {
+				t[pos - 1] = '-';
+				t[pos++] = s[i];
+			}
+			dashSeen = 1;
+		}
+		else if (s[i] >= 'a' && s[i] <= 'z') {
+			switch (state) {
+			case literal: {
+				start = s[i];
+				state = inlower;
+				t[pos++] = s[i];
+				break;
+			}
+			case inlower: {
+				if (dashSeen) {
+					if (s[i] > start) {
+						end = s[i];
+						writeexpansion(start+1, end, t, pos);
+					}
+				}
+				start = s[i];
+				t[pos++] = s[i];
+				break;
+			}
+			}
+		}
+		else if (s[i] >= 'A' && s[i] <= 'Z') {
+
+		}
+		else {
+			t[pos++] = s[i];
+		}
+	}
+	switch (state) {
+	case inlower: {
+		if (dashSeen) {
+			t[pos - 1] = '-';
+		}
+		break;
+	}
+	}
+}
+
+void writeexpansion(char start, char end, char * t, int pos) {
+	while (start < end) {
+		t[pos++] = start++;		
+	}
+}
+
+void expandtest() {
+	char t1[] = "a-";
+	char t2[] = "-a";
+	char t3[] = "a-b";
+	char t4[] = "a-c";
+	char t5[] = "-a-c-";
+	char ts[5][20] = { "a-", "-a", "a-b", "a-c", "-a-c-" };
+	int lens = *(&ts + 1) - ts;
+	char r[100];
+	for (int i = 0; i < lens; i++) {
+		r[100];
+		expand(ts[i], r, 20);
+	}
+	char r1[100], r2[100], r3[100], r4[100], r5[100];
+	int len = *(&t1 + 1) - t1;
+	expand(t1, r1, len);
+}
+
 int binsearch(int x, int v[], int n) {
 	int low, high, mid, count;
 	count = 1;
@@ -16,6 +100,30 @@ int binsearch(int x, int v[], int n) {
 	if (v[mid+1] == x)
 		return mid+1;
 	return -1;
+}
+
+void binsearchtest() {
+	int domain[] = { 1 };
+	int domain2[] = { 1, 2 };
+	int domain3[] = { 1, 2, 3, 4 };
+	int pos;
+
+
+	//pos = binsearch(0, domain, 1);
+	//printf("pos: %i\n", pos);
+
+	//pos = binsearch(1, domain, 1);
+	//printf("pos: %i\n", pos);
+
+	//pos = binsearch(1, domain2, 2);
+	//printf("pos: %i\n", pos);
+
+	//pos = binsearch(2, domain2, 2);
+	//printf("pos: %i\n", pos);
+	for (int i = 0; i < 4; i++) {
+		pos = binsearch(i + 1, domain3, 4);
+		printf("pos: %i\n", pos);
+	}
 }
 
 void escape(char s[], char t[]) {
