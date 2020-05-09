@@ -4,12 +4,7 @@ void writeexpansion(char start, char end, char* t, int pos);
 void expand(char s[], char t[], int len);
 
 void expandtest() {
-	char t1[] = "a-";
-	char t2[] = "-a";
-	char t3[] = "a-b";
-	char t4[] = "a-c";
-	char t5[] = "-a-c-";
-	char ts[5][20] = { "a-", "-a", "a-b", "a-c", "-a-c-" };
+	char ts[10][20] = { "a-1-8-c", "a-bc-d", "z-a", "a--b", "a-", "-a", "a-b", "a-c", "-a-z-", "-a-"};
 	int lens = *(&ts + 1) - ts;
 	char r[100];
 	for (int i = 0; i < lens; i++) {
@@ -33,13 +28,15 @@ void expand(char s[], char t[], int len) {
 	while (s[i] != '\0') {
 		if (s[i] == '-' && state != LITERAL) {
 			if (dashSeen) {
-				t[pos - 1] = '-';
+				t[pos++] = '-';
 				t[pos++] = s[i];
 			}
 			dashSeen = 1;
 		}
 		else if (s[i] >= 'a' && s[i] <= 'z') {
 			switch (state) {
+			case INUPPER:
+			case NUMERIC:
 			case LITERAL: {
 				start = s[i];
 				state = INLOWER;
@@ -52,6 +49,12 @@ void expand(char s[], char t[], int len) {
 						end = s[i];
 						writeexpansion(start+1, end, t, & pos);
 						state = LITERAL;
+						dashSeen = 0;
+					}
+					else {
+						state = LITERAL;
+						t[pos++] = '-';
+						t[pos++] = s[i];
 					}
 				}
 				else {
@@ -63,7 +66,68 @@ void expand(char s[], char t[], int len) {
 			}
 		}
 		else if (s[i] >= 'A' && s[i] <= 'Z') {
-
+			switch (state) {
+			case INLOWER:
+			case NUMERIC:
+			case LITERAL: {
+				start = s[i];
+				state = INUPPER;
+				t[pos++] = s[i];
+				break;
+			}
+			case INUPPER: {
+				if (dashSeen) {
+					if (s[i] > start) {
+						end = s[i];
+						writeexpansion(start + 1, end, t, &pos);
+						state = LITERAL;
+						dashSeen = 0;
+					}
+					else {
+						state = LITERAL;
+						t[pos++] = '-';
+						t[pos++] = s[i];
+					}
+				}
+				else {
+					start = s[i];
+					t[pos++] = s[i];
+				}
+				break;
+			}
+			}
+		}
+		else if (s[i] >= '0' && s[i] <= '9') {
+			switch (state) {
+			case INLOWER:
+			case INUPPER:
+			case LITERAL: {
+				start = s[i];
+				state = NUMERIC;
+				t[pos++] = s[i];
+				break;
+			}
+			case NUMERIC: {
+				if (dashSeen) {
+					if (s[i] > start) {
+						end = s[i];
+						writeexpansion(start + 1, end, t, &pos);
+						state = LITERAL;
+						dashSeen = 0;
+					}
+					else {
+						state = LITERAL;
+						t[pos++] = '-';
+						t[pos++] = s[i];
+					}
+				}
+				else {
+					start = s[i];
+					t[pos++] = s[i];
+				}
+				break;
+			}
+			}
 		}
 		else {
 			t[pos++] = s[i];
@@ -71,12 +135,12 @@ void expand(char s[], char t[], int len) {
 		i++;
 	}
 	switch (state) {
-	case INLOWER: {
-		if (dashSeen) {
-			t[pos++] = '-';
-		}
-		break;
+
+	if (dashSeen) {
+		t[pos++] = '-';
 	}
+	break;
+	
 	}
 	t[pos] = '\0';
 }
