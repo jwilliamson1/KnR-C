@@ -27,11 +27,14 @@ void expand(char s[], char t[], int len) {
 	int i = 0;
 	while (s[i] != '\0') {
 		if (s[i] == '-' && state != LITERAL) {
-			if (dashSeen) {
+			if (!dashSeen) {
+				dashSeen = 1;
+				// don't bump cuz we might overwrite
 				t[pos++] = '-';
-				t[pos++] = s[i];
 			}
-			dashSeen = 1;
+			else {
+				t[pos++] = '-';
+			}			
 		}
 		else if (s[i] >= 'a' && s[i] <= 'z') {
 			switch (state) {
@@ -41,6 +44,7 @@ void expand(char s[], char t[], int len) {
 				start = s[i];
 				state = INLOWER;
 				t[pos++] = s[i];
+				dashSeen = 0;
 				break;
 			}
 			case INLOWER: {
@@ -73,6 +77,7 @@ void expand(char s[], char t[], int len) {
 				start = s[i];
 				state = INUPPER;
 				t[pos++] = s[i];
+				dashSeen = 0;
 				break;
 			}
 			case INUPPER: {
@@ -105,7 +110,8 @@ void expand(char s[], char t[], int len) {
 				start = s[i];
 				state = NUMERIC;
 				t[pos++] = s[i];
-				break;
+				dashSeen = 0;
+				break;				
 			}
 			case NUMERIC: {
 				if (dashSeen) {
@@ -146,8 +152,9 @@ void expand(char s[], char t[], int len) {
 }
 
 void writeexpansion(char start, char end, char * t, int * pos) {
+	int temp = (*pos) - 1;
 	while (start <= end) {
-		t[(*pos)++] = start++;		
+		t[temp++] = start++;		
 	}
 }
 
