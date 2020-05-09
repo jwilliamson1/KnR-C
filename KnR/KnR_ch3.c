@@ -1,68 +1,7 @@
 #include <stdio.h>
 
 void writeexpansion(char start, char end, char* t, int pos);
-
-void expand(char s[], char t[], int len) {
-	int pos = 0;
-	int dashSeen = 0;
-	char start;
-	char end;
-	enum states {literal, inlower, inupper, numeric};
-	enum states state;
-	state = literal;
-	for (int i = 0; i < len; i++) {
-		if (s[i] == '\0')
-			break;
-		if (s[i] == '-') {
-			if (dashSeen) {
-				t[pos - 1] = '-';
-				t[pos++] = s[i];
-			}
-			dashSeen = 1;
-		}
-		else if (s[i] >= 'a' && s[i] <= 'z') {
-			switch (state) {
-			case literal: {
-				start = s[i];
-				state = inlower;
-				t[pos++] = s[i];
-				break;
-			}
-			case inlower: {
-				if (dashSeen) {
-					if (s[i] > start) {
-						end = s[i];
-						writeexpansion(start+1, end, t, pos);
-					}
-				}
-				start = s[i];
-				t[pos++] = s[i];
-				break;
-			}
-			}
-		}
-		else if (s[i] >= 'A' && s[i] <= 'Z') {
-
-		}
-		else {
-			t[pos++] = s[i];
-		}
-	}
-	switch (state) {
-	case inlower: {
-		if (dashSeen) {
-			t[pos - 1] = '-';
-		}
-		break;
-	}
-	}
-}
-
-void writeexpansion(char start, char end, char * t, int pos) {
-	while (start < end) {
-		t[pos++] = start++;		
-	}
-}
+void expand(char s[], char t[], int len);
 
 void expandtest() {
 	char t1[] = "a-";
@@ -74,12 +13,78 @@ void expandtest() {
 	int lens = *(&ts + 1) - ts;
 	char r[100];
 	for (int i = 0; i < lens; i++) {
-		r[100];
 		expand(ts[i], r, 20);
+		printf("%s\n", r);
 	}
-	char r1[100], r2[100], r3[100], r4[100], r5[100];
-	int len = *(&t1 + 1) - t1;
-	expand(t1, r1, len);
+	//char r1[100], r2[100], r3[100], r4[100], r5[100];
+	//int len = *(&t1 + 1) - t1;
+	//expand(t1, r1, len);
+}
+
+void expand(char s[], char t[], int len) {
+	int pos = 0;
+	int dashSeen = 0;
+	char start;
+	char end;
+	enum states {LITERAL, INLOWER, INUPPER, NUMERIC};
+	enum states state;
+	state = LITERAL;
+	int i = 0;
+	while (s[i] != '\0') {
+		if (s[i] == '-' && state != LITERAL) {
+			if (dashSeen) {
+				t[pos - 1] = '-';
+				t[pos++] = s[i];
+			}
+			dashSeen = 1;
+		}
+		else if (s[i] >= 'a' && s[i] <= 'z') {
+			switch (state) {
+			case LITERAL: {
+				start = s[i];
+				state = INLOWER;
+				t[pos++] = s[i];
+				break;
+			}
+			case INLOWER: {
+				if (dashSeen) {
+					if (s[i] > start) {
+						end = s[i];
+						writeexpansion(start+1, end, t, & pos);
+						state = LITERAL;
+					}
+				}
+				else {
+					start = s[i];
+					t[pos++] = s[i];
+				}
+				break;
+			}
+			}
+		}
+		else if (s[i] >= 'A' && s[i] <= 'Z') {
+
+		}
+		else {
+			t[pos++] = s[i];
+		}
+		i++;
+	}
+	switch (state) {
+	case INLOWER: {
+		if (dashSeen) {
+			t[pos++] = '-';
+		}
+		break;
+	}
+	}
+	t[pos] = '\0';
+}
+
+void writeexpansion(char start, char end, char * t, int * pos) {
+	while (start <= end) {
+		t[(*pos)++] = start++;		
+	}
 }
 
 int binsearch(int x, int v[], int n) {
