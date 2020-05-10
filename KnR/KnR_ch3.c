@@ -4,16 +4,13 @@ void writeexpansion(char start, char end, char* t, int pos);
 void expand(char s[], char t[], int len);
 
 void expandtest() {
-	char ts[10][20] = { "a-1-8-c", "a-bc-d", "z-a", "a--b", "a-", "-a", "a-b", "a-c", "-a-z-", "-a-"};
+	char ts[10][20] = { "a-1-8-c-e", "a-bc-d", "z-a", "a--b", "a-", "-a", "a-b", "a-c", "-a-z-", "-a-"};
 	int lens = *(&ts + 1) - ts;
 	char r[100];
 	for (int i = 0; i < lens; i++) {
 		expand(ts[i], r, 20);
 		printf("%s\n", r);
 	}
-	//char r1[100], r2[100], r3[100], r4[100], r5[100];
-	//int len = *(&t1 + 1) - t1;
-	//expand(t1, r1, len);
 }
 
 void expand(char s[], char t[], int len) {
