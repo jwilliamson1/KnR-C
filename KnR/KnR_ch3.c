@@ -152,9 +152,9 @@ void expand(char s[], char t[], int len) {
 }
 
 void writeexpansion(char start, char end, char * t, int * pos) {
-	int temp = (*pos) - 1;
+	(*pos)--;
 	while (start <= end) {
-		t[temp++] = start++;		
+		t[(*pos)++] = start++;
 	}
 }
 
