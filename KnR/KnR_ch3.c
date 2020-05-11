@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 
 void writeexpansion(char start, char end, char* t, int pos);
 void expand(char s[], char t[], int len);
@@ -155,48 +156,73 @@ void writeexpansion(char start, char end, char * t, int * pos) {
 	}
 }
 
-int binsearch(int x, int v[], int n) {
+int binsearch2(int x, int v[], int n) {
 	int low, high, mid, count;
 	count = 1;
 	low = 0;
 	high = n - 1;
-	while (v[(mid = (low + high) / 2)] != x && v[mid+1] != x && low + 1 < high) {
-		printf("iterations: %i\n", count++);
+	mid = (low + high) / 2;
+	while (low <= high && mid[v] != x) {
 		if (x < v[mid])
 			high = mid-1;
 		else
-			low = mid;
+			low = mid+1;
+		mid = (low + high) / 2;
 	}
 	if (v[mid] == x)
 		return mid;
 
-	if (v[mid+1] == x)
-		return mid+1;
+	return -1;
+}
+
+int binsearch1(int x, int v[], int n) {
+	int low, mid, high;
+	low = 0;
+	high = n - 1;
+	while (low <= high) {
+		mid = (low + high) / 2;
+		if (x < v[mid])
+			high = mid - 1;
+		else if (x > v[mid])
+			low = mid + 1;
+		else
+			return mid;
+	}
 	return -1;
 }
 
 void binsearchtest() {
-	int domain[] = { 1 };
-	int domain2[] = { 1, 2 };
-	int domain3[] = { 1, 2, 3, 4 };
+	clock_t time_taken;
 	int pos;
 
+	long domain4[131070];
 
-	//pos = binsearch(0, domain, 1);
-	//printf("pos: %i\n", pos);
+	for (int i = 0; i < 131070; i++)
+		domain4[i] = i;
 
-	//pos = binsearch(1, domain, 1);
-	//printf("pos: %i\n", pos);
+	time_taken = clock();
 
-	//pos = binsearch(1, domain2, 2);
-	//printf("pos: %i\n", pos);
-
-	//pos = binsearch(2, domain2, 2);
-	//printf("pos: %i\n", pos);
-	for (int i = 0; i < 4; i++) {
-		pos = binsearch(i + 1, domain3, 4);
-		printf("pos: %i\n", pos);
+	for (int i = 0; i < 131070; i++) {
+		pos = binsearch1(i, domain4, 131070);
 	}
+
+	time_taken = clock() - time_taken;
+
+	printf("binsearch() took %lu clocks (%lu seconds)\n",
+		(unsigned long)time_taken,
+		(unsigned long)time_taken / CLOCKS_PER_SEC);
+
+	time_taken = clock();
+
+	for (int i = 0; i < 131070; i++) {
+		pos = binsearch2(i, domain4, 131070);
+	}
+
+	time_taken = clock() - time_taken;
+
+	printf("binsearch() took %lu clocks (%lu seconds)\n",
+		(unsigned long)time_taken,
+		(unsigned long)time_taken / CLOCKS_PER_SEC);
 }
 
 void escape(char s[], char t[]) {

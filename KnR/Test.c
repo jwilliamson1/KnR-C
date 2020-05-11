@@ -8,7 +8,7 @@
 #include "KnR_ch3.h"
 
 int main() {
-	expandtest();	
+	binsearchtest();
 	system("pause");
 	return 1;
 }
