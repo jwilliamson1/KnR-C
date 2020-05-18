@@ -5,7 +5,7 @@ void writeexpansion(char start, char end, char* t, int pos);
 void expand(char s[], char t[], int len);
 
 void expandtest() {
-	char ts[10][20] = { "a-1-8-c-e", "a-bc-d", "z-a", "a--b", "a-", "-a", "a-b", "a-c", "-a-z-", "-a-"};
+	char ts[11][20] = { "!a-c", "a-1-8-c-e", "a-bc-d", "z-a", "a--b", "a-", "-a", "a-b", "a-c", "-a-z-", "-a-"};
 	int lens = *(&ts + 1) - ts;
 	char r[100];
 	for (int i = 0; i < lens; i++) {
@@ -14,12 +14,18 @@ void expandtest() {
 	}
 }
 
+enum states { LITERAL, INLOWER, INUPPER, NUMERIC };
+
+enum states determineexpandtype(char s[]) {
+
+}
+
 void expand(char s[], char t[], int len) {
 	int pos = 0;
 	int dashSeen = 0;
 	char start;
 	char end;
-	enum states {LITERAL, INLOWER, INUPPER, NUMERIC};
+	
 	enum states state;
 	state = LITERAL;
 	int i = 0;
@@ -156,23 +162,26 @@ void writeexpansion(char start, char end, char * t, int * pos) {
 	}
 }
 
+int iterations = 0;
+
 int binsearch2(int x, int v[], int n) {
-	int low, high, mid, count;
-	count = 1;
+	int low, mid, high;
+
 	low = 0;
 	high = n - 1;
-	mid = (low + high) / 2;
-	while (low <= high && mid[v] != x) {
-		if (x < v[mid])
-			high = mid-1;
-		else
-			low = mid+1;
+	while (low < high) {
+		iterations++;
 		mid = (low + high) / 2;
+		if (x <= v[mid])
+			high = mid;
+		else
+			low = mid + 1;
 	}
-	if (v[mid] == x)
-		return mid;
 
-	return -1;
+	if (x == v[low])
+		return low;
+	else
+		return -1;
 }
 
 int binsearch1(int x, int v[], int n) {
@@ -181,6 +190,7 @@ int binsearch1(int x, int v[], int n) {
 	high = n - 1;
 	while (low <= high) {
 		mid = (low + high) / 2;
+		iterations++;
 		if (x < v[mid])
 			high = mid - 1;
 		else if (x > v[mid])
@@ -194,7 +204,7 @@ int binsearch1(int x, int v[], int n) {
 void binsearchtest() {
 	clock_t time_taken;
 	int pos;
-
+	// mid point 65535
 	long domain4[131070];
 
 	for (int i = 0; i < 131070; i++)
@@ -208,9 +218,13 @@ void binsearchtest() {
 
 	time_taken = clock() - time_taken;
 
-	printf("binsearch() took %lu clocks (%lu seconds)\n",
+	printf("binsearch1() took %lu clocks (%lu seconds)\n",
 		(unsigned long)time_taken,
 		(unsigned long)time_taken / CLOCKS_PER_SEC);
+
+	printf("iterations: %i\n", iterations);
+
+	iterations = 0;
 
 	time_taken = clock();
 
@@ -220,9 +234,16 @@ void binsearchtest() {
 
 	time_taken = clock() - time_taken;
 
-	printf("binsearch() took %lu clocks (%lu seconds)\n",
+	printf("binsearch2() took %lu clocks (%lu seconds)\n",
 		(unsigned long)time_taken,
 		(unsigned long)time_taken / CLOCKS_PER_SEC);
+
+	printf("iterations: %i\n", iterations);
+
+	for (int i = 0; i < 10; i++) {
+		pos = binsearch1(i, domain4, 10);
+	}
+
 }
 
 void escape(char s[], char t[]) {
