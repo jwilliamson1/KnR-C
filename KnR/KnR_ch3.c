@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
-void writeexpansion(char start, char end, char* t, int pos);
+void writeexpansion(char start, char end, char *t, int *pos);
 void expand(char s[], char t[], int len);
 
 void expandtest() {
@@ -16,8 +16,14 @@ void expandtest() {
 
 enum states { LITERAL, INLOWER, INUPPER, NUMERIC };
 
-enum states determineexpandtype(char s[]) {
-
+enum states determineexpandtype(char ch) {
+	if (ch >= 'a' && ch <= 'z')
+		return INLOWER;
+	if (ch >= 'A' && ch <= 'Z')
+		return INUPPER;
+	if (ch >= '0' && ch <= '9')
+		return NUMERIC;
+	return LITERAL;
 }
 
 void expand(char s[], char t[], int len) {
