@@ -8,7 +8,7 @@
 #include "KnR_ch3.h"
 
 int main() {
-	expandtest();
+	testitoa();
 	system("pause");
 	return 1;
 }
