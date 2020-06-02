@@ -34,14 +34,12 @@ void testitob() {
 
 void itoa(int n, char s[]) { //convert n to characters
 	int i, sign;
-
-	if ((sign = n) > 0) /* record sign */
-		n = -n; // make negative
+	sign = (n < 0) ? -1 : 1;
 	i = 0;
 	do{
-		int tmp = abs(n % (-10)) + '0';
-		s[i++] = tmp;
-	} while ((n /= 10) < 0);
+		s[i++] = sign * (n % 10) + '0';
+		
+	} while ((n /= 10) != 0);
 	if (sign < 0)
 		s[i++] = '-';
 	s[i] = '\0';
