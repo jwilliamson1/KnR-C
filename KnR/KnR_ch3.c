@@ -12,7 +12,6 @@ void reverse(char s[]) {
 
 void itob(int n, char s[], int b) { //convert n to characters
 	int i, sign;
-
 	if ((sign = n) > 0) /* record sign */
 		n = -n; // make negative
 	i = 0;
@@ -27,6 +26,7 @@ void itob(int n, char s[], int b) { //convert n to characters
 
 void testitob() {
 	signed short int i1 = -32768;
+	long float test = 0.0;	
 	printf("itoa: %i\n", i1);
 	i1 = 32767;
 	printf("itoa: %i\n", i1);
@@ -38,9 +38,9 @@ void itoa(int n, char s[]) { //convert n to characters
 	if ((sign = n) > 0) /* record sign */
 		n = -n; // make negative
 	i = 0;
-	int ten = -10;
-	do {
-		s[i++] = n % ten + '0';
+	do{
+		int tmp = abs(n % (-10)) + '0';
+		s[i++] = tmp;
 	} while ((n /= 10) < 0);
 	if (sign < 0)
 		s[i++] = '-';
@@ -48,24 +48,8 @@ void itoa(int n, char s[]) { //convert n to characters
 	reverse(s);
 }
 
-/* itoa: convert n to characters in s */
-//void itoa(int n, char s[])
-//{
-//	int i, sign;
-//	if ((sign = n) < 0) /* record sign */
-//		n = -n; /* make n positive */
-//	i = 0;
-//	do { /* generate digits in reverse order */
-//		s[i++] = n % 10 + '0'; /* get next digit */
-//	} while ((n /= 10) > 0); /* delete it */
-//	if (sign < 0)
-//		s[i++] = '-';
-//	s[i] = '\0';
-//	reverse(s);
-//}
-
 void testitoa() {
-	signed short int i1 = -32767;
+	signed short int i1 = -32768;
 	char res1[7];
 	itoa(i1, res1);
 	printf("itoa: %s\n", res1);
