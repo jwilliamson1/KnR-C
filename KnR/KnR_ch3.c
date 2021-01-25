@@ -10,13 +10,20 @@ void reverse(char s[]) {
 	}
 }
 
+/* done! */
 void itob(int n, char s[], int b) { //convert n to characters
-	int i, sign;
+	int i, sign, over;
 	sign = (n < 0) ? -1 : 1;
 	i = 0;
 	do {
-		int temp = sign * (n % b) + '0';
-		s[i++] = temp > 9 ? (temp + 9) : temp;
+		int temp = sign * (n % b);
+		if (temp > 9) {
+			over = temp - 10;
+			s[i++] = over + 'A';
+		}
+		else {
+			s[i++] = temp + '0';
+		}
 
 	} while ((n /= b) != 0);
 	if (sign < 0)
@@ -26,14 +33,14 @@ void itob(int n, char s[], int b) { //convert n to characters
 }
 
 void testitob() {
-	signed short int i1 = -32768;
+	short int i1 = 33;
 	char res1[7];
-	itob(i1, res1, 15);
-	printf("itoa: %s\n", res1);
-	i1 = 32767;
+	itob(i1, res1, 16);
+	printf("itob: %s\n", res1);
+	i1 = 123;
 	char res2[6];
-	itob(i1, res2, 15);
-	printf("itoa: %s\n", res2);
+	itob(i1, res2, 16);
+	printf("itob: %s\n", res2);
 }
 
 
