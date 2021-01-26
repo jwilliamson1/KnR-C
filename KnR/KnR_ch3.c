@@ -32,6 +32,32 @@ void itob(int n, char s[], int b) { //convert n to characters
 	reverse(s);
 }
 
+void itoap(int n, char s[], int w) { //convert n to characters
+	int i, sign, p;
+	sign = (n < 0) ? -1 : 1;
+	p = i = 0;
+	do {
+		p++;
+		s[i++] = sign * (n % 10) + '0';
+
+	} while ((n /= 10) != 0);	
+	if (sign < 0)
+		s[i++] = '-';
+	while (p < w) {
+		p++;
+		s[i++] = ' ';
+	}
+	s[i] = '\0';
+	reverse(s);
+}
+
+void test_iotap() {
+	short int i_1 = 33;
+	char res[8];
+	itoap(i_1, res, 5);
+	printf("itoa: %s\n", res);
+}
+
 void testitob() {
 	short int i1 = 33;
 	char res1[7];

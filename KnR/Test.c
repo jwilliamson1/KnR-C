@@ -8,7 +8,7 @@
 #include "KnR_ch3.h"
 
 int main() {
-	testitob();
+	test_iotap();
 	system("pause");
 	return 1;
 }
