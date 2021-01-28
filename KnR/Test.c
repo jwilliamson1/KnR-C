@@ -8,7 +8,7 @@
 #include "KnR_ch3.h"
 
 int main() {
-	test_strindex();
+	test_atof();
 	system("pause");
 	return 1;
 }
