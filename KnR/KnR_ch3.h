@@ -13,3 +13,4 @@ void itob(int n, char s[], int b);
 void testitob();
 void itoap(int n, char s[], int w);
 void test_iotap();
+void reverse(char s[]);
