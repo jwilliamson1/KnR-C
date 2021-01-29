@@ -1,10 +1,11 @@
 #include "KnR_ch3.h"
+#include <math.h>
 //4-2
 /* atof: convert string s to double */
 double atof(char s[])
 {
-	double val, power, epower;
-	int i, sign, esign;
+	double val, power;
+	int i, sign, esign, epower, j;
 	for (i = 0; isspace(s[i]); i++) /* skip white space */
 		;
 	sign = (s[i] == '-') ? -1 : 1;
@@ -18,6 +19,7 @@ double atof(char s[])
 		val = 10.0 * val + (s[i] - '0');
 		power *= 10;
 	}
+	val = sign * val / power;
 	if (s[i] == 'e' || s[i] == 'E')
 		i++;
 	esign = (s[i] == '-') ? -1 : 1;
@@ -25,13 +27,9 @@ double atof(char s[])
 		i++;
 	for (epower = 0.0; isdigit(s[i]); i++) {
 		epower = 10.0 * epower + (s[i] - '0');
-		power = epower;
 	}
-		
-	if (esign < 0)
-		power = 1 / power;
-
-	return sign * val / power;
+	double f = pow((double)10, (double)esign * epower);
+	return val * f;
 }
 
 void test_atof() {
