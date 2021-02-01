@@ -6,6 +6,7 @@
 int getop(char[]);
 void push(double);
 double pop(void);
+void readTopTwo();
 /* reverse Polish calculator */
 #define MAXVAL 100 /* maximum depth of val stack */
 int sp = 0; /* next free stack position */
@@ -28,6 +29,20 @@ double pop(void)
 		printf("error: stack empty\n");
 		return 0.0;
 	}
+}
+// 4-4
+void readTopTwo() {
+	if (sp > 1) {
+		printf("\t % .8g\n", val[sp - 2]);
+		printf("\t % .8g\n", val[sp - 1]);
+	}
+	else if (sp > 0) {
+		printf("\t % .8g\n", val[sp - 1]);
+	}
+	else {
+		printf("error: stack empty");
+		return;
+	}	
 }
 
 int getch(void);
@@ -102,6 +117,9 @@ calc()
 				push(fmod(pop(), op2));
 			else
 				printf("error: zero divisor for Modulus\n");
+			break;
+		case 'M':
+			readTopTwo();
 			break;
 		case '\n':
 			printf("\t%.8g\n", pop());
