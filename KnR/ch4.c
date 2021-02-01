@@ -2,7 +2,7 @@
 #include <math.h>
 //4-2
 /* atof: convert string s to double */
-double atof(char s[])
+double _atof(char s[])
 {
 	double val, power;
 	int i, sign, esign, epower, j;

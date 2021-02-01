@@ -6,9 +6,11 @@
 #include "Test.h"
 #include "HW2.h"
 #include "KnR_ch3.h"
+#include "ch4.h"
+#include "ch4_reverse_polish.h"
 
 int main() {
-	test_atof();
+	calc();
 	system("pause");
 	return 1;
 }

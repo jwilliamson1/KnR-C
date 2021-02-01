@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ch4.c" />
+    <ClCompile Include="ch4_reverse_polish.c" />
     <ClCompile Include="GetArbitraryLines.c" />
     <ClCompile Include="HW2.c" />
     <ClCompile Include="KnR_ch3.c" />
@@ -123,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ch4.h" />
+    <ClInclude Include="ch4_reverse_polish.h" />
     <ClInclude Include="GetArbitratyLines.h" />
     <ClInclude Include="HW1.h" />
     <ClInclude Include="HW2.h" />
