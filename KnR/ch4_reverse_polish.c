@@ -45,6 +45,17 @@ void readTopTwo() {
 	}	
 }
 
+void swapTop() {
+	if (sp >= 2) {
+		double temp = val[sp - 1];
+		val[sp - 1] = val[sp - 2];
+		val[sp - 2] = temp;
+	}
+	else {
+		printf("error: need at least two items to swap.");
+	}
+}
+
 int getch(void);
 void ungetch(int);
 /* getop: get next character or numeric operand */
@@ -123,6 +134,9 @@ calc()
 			break;
 		case '\n':
 			printf("\t%.8g\n", pop());
+			break;
+		case '&':
+			swapTop();
 			break;
 		default:
 			printf("error: unknown command %s\n", s);
