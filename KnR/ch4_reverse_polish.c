@@ -45,6 +45,13 @@ void readTopTwo() {
 	}	
 }
 
+void duplicateTop() {
+	if (sp >= 1 && sp < MAXVAL) {
+		val[sp] = val[sp - 1];
+		sp++;
+	}
+}
+
 void swapTop() {
 	if (sp >= 2) {
 		double temp = val[sp - 1];
@@ -137,6 +144,9 @@ calc()
 			break;
 		case '&':
 			swapTop();
+			break;
+		case 'D':
+			duplicateTop();
 			break;
 		default:
 			printf("error: unknown command %s\n", s);
